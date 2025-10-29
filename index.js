@@ -19,10 +19,11 @@ app.post('/jwt', async(req,res)=>{
 
 // veryToken middleware
  const verifyToken = (req,res,next)=>{
-    const authHeader = req.headers.authorization;
+    console.log('accesstoken',req.headers.Authorization)
+    const authHeader = req.headers.Authorization;
     if(!authHeader) return res.status(401).send({message:'unauthorized'});
 
-    const token = authHeader.split("")[1];
+    const token = authHeader.split(" ")[1];
     jwt.verify(token,process.env.SECREAT_KEY,(error,decoded)=>{
         if(error) return res.status(403).send({message:'forbidden'});
         req.decoded = decoded;
